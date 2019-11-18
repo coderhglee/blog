@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
-  <link rel="alternate" href="/blog/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/blog/atom.xml" title="dev history" type="application/atom+xml">
 
 <link rel="stylesheet" href="/blog/css/main.css">
 
@@ -25,7 +25,7 @@
     version: '7.5.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    copycode: {"enable":false,"show_result":true,"style":"mac"},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
@@ -42,20 +42,15 @@
     localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
     path: '',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
     sidebarPadding: 40
   };
 </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="dev history">
 <meta property="og:url" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;archives&#x2F;2019&#x2F;11&#x2F;index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en">
+<meta property="og:site_name" content="dev history">
+<meta property="og:locale" content="ko">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://coderhglee.github.io/archives/2019/11/">
@@ -72,7 +67,7 @@
   };
 </script>
 
-  <title>Archive | Hexo</title>
+  <title>아카이브 | dev history</title>
   
 
 
@@ -116,10 +111,11 @@
     <div>
       <a href="/blog/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">dev history</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <p class="site-subtitle">1일 1커밋</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -137,12 +133,27 @@
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>카테고리</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>태그</a>
 
   </li>
   </ul>
@@ -172,7 +183,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <span class="collection-header">Um..! 2 posts in total. Keep on posting.</span>
+        <span class="collection-header">음..! 총 2개의 포스트 포스트를 마저 작성하세요</span>
       </div>
 
       
@@ -248,10 +259,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          목차
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          흝어보기
         </li>
       </ul>
 
@@ -262,7 +273,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
+  <p class="site-author-name" itemprop="name">coderhglee</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -271,12 +282,20 @@
           <a href="/blog/archives/">
         
           <span class="site-state-item-count">2</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">포스트</span>
         </a>
       </div>
-      <div class="site-state-item site-state-tags">
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
 </div>
@@ -309,7 +328,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">coderhglee</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>

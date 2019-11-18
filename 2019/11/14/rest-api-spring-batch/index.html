@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
-  <link rel="alternate" href="/blog/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/blog/atom.xml" title="dev history" type="application/atom+xml">
 
 <link rel="stylesheet" href="/blog/css/main.css">
 
@@ -25,7 +25,7 @@
     version: '7.5.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    copycode: {"enable":false,"show_result":true,"style":"mac"},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
@@ -42,11 +42,6 @@
     localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
     path: '',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
     sidebarPadding: 40
   };
 </script>
@@ -56,15 +51,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="rest-api-spring-batch">
 <meta property="og:url" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;14&#x2F;rest-api-spring-batch&#x2F;index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="dev history">
 <meta property="og:description" content="Spring Batch">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;14&#x2F;rest-api-spring-batch&#x2F;%3C!--%EF%BF%BC11--%3E&#x2F;assets&#x2F;images&#x2F;metadata.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;14&#x2F;rest-api-spring-batch&#x2F;%3C!--%EF%BF%BC12--%3E&#x2F;assets&#x2F;images&#x2F;Job.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;14&#x2F;rest-api-spring-batch&#x2F;%3C!--%EF%BF%BC13--%3E&#x2F;assets&#x2F;images&#x2F;chunk.png">
-<meta property="og:updated_time" content="2019-11-15T09:13:52.501Z">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69026694-482e4300-0a0f-11ea-8f3f-7b7a793d1623.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69026697-495f7000-0a0f-11ea-963e-a75b7a2ef814.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69026696-48c6d980-0a0f-11ea-814f-fef33b5711d7.png">
+<meta property="og:updated_time" content="2019-11-18T06:00:59.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;14&#x2F;rest-api-spring-batch&#x2F;%3C!--%EF%BF%BC11--%3E&#x2F;assets&#x2F;images&#x2F;metadata.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69026694-482e4300-0a0f-11ea-8f3f-7b7a793d1623.png">
 
 <link rel="canonical" href="https://coderhglee.github.io/2019/11/14/rest-api-spring-batch/">
 
@@ -80,7 +75,7 @@
   };
 </script>
 
-  <title>rest-api-spring-batch | Hexo</title>
+  <title>rest-api-spring-batch | dev history</title>
   
 
 
@@ -124,10 +119,11 @@
     <div>
       <a href="/blog/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">dev history</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <p class="site-subtitle">1일 1커밋</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -145,12 +141,27 @@
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>카테고리</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>태그</a>
 
   </li>
   </ul>
@@ -178,17 +189,17 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
     <link itemprop="mainEntityOfPage" href="https://coderhglee.github.io/blog/2019/11/14/rest-api-spring-batch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="coderhglee">
       <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="dev history">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -200,17 +211,34 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">작성일</span>
 
-              <time title="Created: 2019-11-14 15:56:57" itemprop="dateCreated datePublished" datetime="2019-11-14T15:56:57+09:00">2019-11-14</time>
+              <time title="Post created: 2019-11-14 15:56:57" itemprop="dateCreated datePublished" datetime="2019-11-14T15:56:57+09:00">2019-11-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-15 18:13:52" itemprop="dateModified" datetime="2019-11-15T18:13:52+09:00">2019-11-15</time>
+                <time title="Updated at: 2019-11-18 15:00:59" itemprop="dateModified" datetime="2019-11-18T15:00:59+09:00">2019-11-18</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/java/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+            </span>
 
           
             <div class="post-description">Spring Batch</div>
@@ -225,7 +253,7 @@
 
       
         <p>Spring Batch에서 제공하는 메타테이블을 사용하지않고 Batch 프로그램을 구동시키기 위한 InMemoryBatchConfigurer Class을 정의한다.</p>
-<h2 id="Batch-Meta-Data-Schema"><a href="#Batch-Meta-Data-Schema" class="headerlink" title="Batch Meta-Data Schema"></a>Batch Meta-Data Schema</h2><p><img src="%3C!--%EF%BF%BC11--%3E/assets/images/metadata.png" alt="Meta-Data Schema"></p>
+<h2 id="Batch-Meta-Data-Schema"><a href="#Batch-Meta-Data-Schema" class="headerlink" title="Batch Meta-Data Schema"></a>Batch Meta-Data Schema</h2><p><img src="https://user-images.githubusercontent.com/24283191/69026694-482e4300-0a0f-11ea-8f3f-7b7a793d1623.png" alt="Meta-Data Schema"></p>
 <ul>
 <li>이전에 실행한 Job이 어떤 것들이 있는지</li>
 <li>최근 실패한 Batch Parameter가 어떤것들이 있고, 성공한 Job은 어떤것들이 있는지</li>
@@ -242,11 +270,11 @@
 <p>이러한 이유로 Spring Batch는 작업 저장소의 메모리 내 맵 버전을 제공한다.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InMemoryBatchConfigurer</span> <span class="keyword">implements</span> <span class="title">BatchConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager transactionManager;</span><br><span class="line">    <span class="keyword">private</span> JobRepository jobRepository;</span><br><span class="line">    <span class="keyword">private</span> JobLauncher jobLauncher;</span><br><span class="line">    <span class="keyword">private</span> JobExplorer jobExplorer;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">getTransactionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> transactionManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobRepository <span class="title">getJobRepository</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jobRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobLauncher <span class="title">getJobLauncher</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jobLauncher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JobExplorer <span class="title">getJobExplorer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jobExplorer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//transactionManager define</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.transactionManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.transactionManager = <span class="keyword">new</span> ResourcelessTransactionManager();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//jobRepository define</span></span><br><span class="line">            MapJobRepositoryFactoryBean jobRepositoryFactoryBean =</span><br><span class="line">                    <span class="keyword">new</span> MapJobRepositoryFactoryBean(<span class="keyword">this</span>.transactionManager);</span><br><span class="line">            jobRepositoryFactoryBean.afterPropertiesSet();</span><br><span class="line">            <span class="keyword">this</span>.jobRepository = jobRepositoryFactoryBean.getObject();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//jobExplorer define</span></span><br><span class="line">            MapJobExplorerFactoryBean jobExplorerFactoryBean =</span><br><span class="line">                    <span class="keyword">new</span> MapJobExplorerFactoryBean(jobRepositoryFactoryBean);</span><br><span class="line">            jobExplorerFactoryBean.afterPropertiesSet();</span><br><span class="line">            <span class="keyword">this</span>.jobExplorer = jobExplorerFactoryBean.getObject();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//jobLauncher define</span></span><br><span class="line">            SimpleJobLauncher jobLauncher = <span class="keyword">new</span> SimpleJobLauncher();</span><br><span class="line">            jobLauncher.setJobRepository(jobRepository);</span><br><span class="line">            jobLauncher.afterPropertiesSet();</span><br><span class="line">            <span class="keyword">this</span>.jobLauncher = jobLauncher;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BatchConfigurationException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h2><p><img src="%3C!--%EF%BF%BC12--%3E/assets/images/Job.png" alt="Job"></p>
+<h2 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h2><p><img src="https://user-images.githubusercontent.com/24283191/69026697-495f7000-0a0f-11ea-963e-a75b7a2ef814.png" alt="Job"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BatchConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JobBuilderFactory jobBuilderFactory;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StepBuilderFactory stepBuilderFactory;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> InterceptingJobExecution interceptingJobExecution;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Job <span class="title">apiJob</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jobBuilderFactory.get(<span class="string">"apiJob"</span>)</span><br><span class="line">                .incrementer(<span class="keyword">new</span> RunIdIncrementer())</span><br><span class="line">                .flow(apiJobStep())</span><br><span class="line">                .end()</span><br><span class="line">                .listener(interceptingJobExecution)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Step <span class="title">apiJobStep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.stepBuilderFactory.get(<span class="string">"apiJobStep"</span>)</span><br><span class="line">                .&lt;Object, Object&gt;chunk(<span class="number">10</span>) <span class="comment">// 최소 Chunk의 사이즈는 10임. 그이하는 Exception</span></span><br><span class="line">                .reader(reader(restTemplate, <span class="keyword">null</span>))</span><br><span class="line">                .processor(processor())</span><br><span class="line">                .writer(writer())</span><br><span class="line">                .allowStartIfComplete(<span class="keyword">true</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@JobScope</span>는 Job 실행시점에 Bean이 생성됨.</span></span><br><span class="line"><span class="comment">     * org.springframework.batch.item.ItemReader는 인터페이스이다. 구현 클래스는 어노테이션 기반 listner 구성에 대해 실행되지 않음.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Bean</span> 메소드에서 <span class="doctag">@StepScope</span>를 사용하는 경우 listner 어노테이션을 사용할 수 있도록 구현 클래스를 리턴해야함</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@StepScope</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JsonReader <span class="title">reader</span><span class="params">(RestTemplate restTemplate, @Value(<span class="string">"#&#123;jobParameters[lastCreatedDate]&#125;"</span>)</span> String lastCreatedDate) </span>&#123;</span><br><span class="line">        String requestUrl = String.format(url, lastCreatedDate, limit, desc);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JsonReader(restTemplate, requestUrl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JsonProcessor <span class="title">processor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JsonProcessor();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JsonWrite <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JsonWrite();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Chunk-Processing"><a href="#Chunk-Processing" class="headerlink" title="Chunk Processing"></a>Chunk Processing</h2><p>스프링 배치는 ‘Chunk 지향’처리 스타일을 사용한다.<br>Chunk 지향 처리는 한 번에 하나씩 데이터를 읽고 트랜잭션 경계 내에서 작성된 Chunk를 작성하는 것을 말한다.<br>하나의 Item이 ItemReader에서 읽혀지고 ItemProcessor로 전달된다.<br>읽은 Item 수가 커밋 간격과 같으면 ItemWriter가 전체 Chunk를 작성한 다음 트랜잭션이 커밋된다.</p>
-<p><img src="%3C!--%EF%BF%BC13--%3E/assets/images/chunk.png" alt="chunk-oriented Processing"></p>
+<p><img src="https://user-images.githubusercontent.com/24283191/69026696-48c6d980-0a0f-11ea-814f-fef33b5711d7.png" alt="chunk-oriented Processing"></p>
 <h2 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h2><p>API를 호출하고 Json을 jackson 라이브러리를 통하여 Java <code>List&lt;Object&gt;</code>로 컨버팅 후 Object로 반환</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonReader</span> <span class="keyword">implements</span> <span class="title">ItemReader</span>&lt;<span class="title">NewsDto</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//요청 url</span></span><br><span class="line">    <span class="keyword">private</span> String requestUrl;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//list index</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; list;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * JsonReader 는 StepScope로 설정되어 프로그램 실행때마다 Baen을 재생성 하기때문에 Autowired 어노테이션이 제기능을 못함.</span></span><br><span class="line"><span class="comment">     * 미리 설정한 restTemplate Bean을 사용하기위해 BatchConfig에서 생성자로 전달받음.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> restTemplate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> requestUrl</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">JsonReader</span><span class="params">(RestTemplate restTemplate,String requestUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.restTemplate = restTemplate;</span><br><span class="line">        <span class="keyword">this</span>.requestUrl = requestUrl;</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Object content = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//리스트 사이즈만큼 content를 하나씩 읽는다.</span></span><br><span class="line">        <span class="keyword">if</span> (index &lt; list.size()) &#123;</span><br><span class="line">            content = list.get(index);</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//초기 0</span></span><br><span class="line">        index = <span class="number">0</span>;</span><br><span class="line">        list = setList();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;Object&gt; <span class="title">setList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//LocalDateTime 파싱을 위한 CustomObjectMapper 정의.</span></span><br><span class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> CustomObjectMapper();</span><br><span class="line">        List&lt;Object&gt; objectList = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ResponseEntity&lt;String&gt; response = restTemplate.getForEntity(requestUrl, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">            log.info(<span class="string">"call URL &#123;&#125;"</span>, requestUrl);</span><br><span class="line"></span><br><span class="line">            JsonNode root = objectMapper.readTree(response.getBody());</span><br><span class="line"></span><br><span class="line">            JsonNode news = root.path(<span class="string">"res"</span>).path(<span class="string">"channel"</span>).path(<span class="string">"news"</span>);</span><br><span class="line">            ObjectReader objectReader = objectMapper.readerFor(<span class="keyword">new</span> TypeReference&lt;List&lt;Object&gt;&gt;() &#123;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            objectList = objectReader.readValue(news);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">            log.info(e.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> objectList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -330,10 +358,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          목차
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          흝어보기
         </li>
       </ul>
 
@@ -345,7 +373,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
+  <p class="site-author-name" itemprop="name">coderhglee</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -354,12 +382,20 @@
           <a href="/blog/archives/">
         
           <span class="site-state-item-count">2</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">포스트</span>
         </a>
       </div>
-      <div class="site-state-item site-state-tags">
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
 </div>
@@ -392,7 +428,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">coderhglee</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
