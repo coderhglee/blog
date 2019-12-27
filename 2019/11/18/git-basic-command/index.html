@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="alternate" href="/blog/atom.xml" title="dev history" type="application/atom+xml">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Git 명령어 정리">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git-basic-command">
+<meta property="og:url" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;18&#x2F;git-basic-command&#x2F;index.html">
+<meta property="og:site_name" content="dev history">
+<meta property="og:description" content="Git 명령어 정리">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2019-12-27T09:22:26.388Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://coderhglee.github.io/2019/11/18/git-basic-command/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>git-basic-command | dev history</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">dev history</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>카테고리</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>태그</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://coderhglee.github.io/blog/2019/11/18/git-basic-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="coderhglee">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dev history">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git-basic-command
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2019-11-18 16:01:43" itemprop="dateCreated datePublished" datetime="2019-11-18T16:01:43+09:00">2019-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-12-27 18:22:26" itemprop="dateModified" datetime="2019-12-27T18:22:26+09:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Git 명령어 정리</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Git-Basic-Command-정리"><a href="#Git-Basic-Command-정리" class="headerlink" title="Git Basic Command 정리"></a>Git Basic Command 정리</h2><p>SourceTree 같은 툴을 사용해도되지만 개발을 하다보면 명령어를 사용하는게 편리할때가 많다.<br>그래서 자주 사용하는 명령어를 정리하고자한다.</p>
+<h3 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h3><h4 id="add"><a href="#add" class="headerlink" title="add"></a>add</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add [file name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="변경-사항이-있는-모든-파일-add"><a href="#변경-사항이-있는-모든-파일-add" class="headerlink" title="변경 사항이 있는 모든 파일 add"></a>변경 사항이 있는 모든 파일 add</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<h4 id="commit-message-와-commit"><a href="#commit-message-와-commit" class="headerlink" title="commit message 와 commit"></a>commit message 와 commit</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"[commit message]"</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="변경-사항이-있는-모든-파일-add-와-동시에-commit"><a href="#변경-사항이-있는-모든-파일-add-와-동시에-commit" class="headerlink" title="변경 사항이 있는 모든 파일 add 와 동시에 commit"></a>변경 사항이 있는 모든 파일 add 와 동시에 commit</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am <span class="string">"[commit message]"</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="remote-repository-등록하기"><a href="#remote-repository-등록하기" class="headerlink" title="remote repository 등록하기"></a>remote repository 등록하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [remote github repository address]</span><br></pre></td></tr></table></figure>
+
+<h4 id="특정-branch-생성하며-remote-에-push-하기"><a href="#특정-branch-생성하며-remote-에-push-하기" class="headerlink" title="특정 branch 생성하며 remote 에 push 하기"></a>특정 branch 생성하며 remote 에 push 하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin [branch name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="branch-간-이동하기"><a href="#branch-간-이동하기" class="headerlink" title="branch 간 이동하기"></a>branch 간 이동하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout [branch name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="branch-생성하기"><a href="#branch-생성하기" class="headerlink" title="branch 생성하기"></a>branch 생성하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b [branch name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="branch-이름-바꾸기"><a href="#branch-이름-바꾸기" class="headerlink" title="branch 이름 바꾸기"></a>branch 이름 바꾸기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -M [changed name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="이전-commit-과-비교하여-파일-변경-사항-확인하기"><a href="#이전-commit-과-비교하여-파일-변경-사항-확인하기" class="headerlink" title="이전 commit 과 비교하여 파일 변경 사항 확인하기"></a>이전 commit 과 비교하여 파일 변경 사항 확인하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+
+<h4 id="commit-log-보기"><a href="#commit-log-보기" class="headerlink" title="commit log 보기"></a>commit log 보기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="git-log-graph-로-출력하기"><a href="#git-log-graph-로-출력하기" class="headerlink" title="git log graph 로 출력하기"></a>git log graph 로 출력하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph</span><br></pre></td></tr></table></figure>
+
+<h3 id="Useful"><a href="#Useful" class="headerlink" title="Useful"></a>Useful</h3><h4 id="변경-사항이-있는-파일-변경-사항-취소하기"><a href="#변경-사항이-있는-파일-변경-사항-취소하기" class="headerlink" title="변경 사항이 있는 파일 변경 사항 취소하기"></a>변경 사항이 있는 파일 변경 사항 취소하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- [file name]</span><br></pre></td></tr></table></figure>
+
+<h4 id="commit-한-개-취소하기"><a href="#commit-한-개-취소하기" class="headerlink" title="commit 한 개 취소하기"></a>commit 한 개 취소하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
+
+<h4 id="바로-이전-commit-message-수정하기"><a href="#바로-이전-commit-message-수정하기" class="headerlink" title="바로 이전 commit message 수정하기"></a>바로 이전 commit message 수정하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h4 id="local-git-repository-에-remote-repository-을-upstream-으로-등록하기"><a href="#local-git-repository-에-remote-repository-을-upstream-으로-등록하기" class="headerlink" title="local git repository 에 remote repository 을 upstream 으로 등록하기"></a>local git repository 에 remote repository 을 upstream 으로 등록하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add --track master upstream [remote github repository address]</span><br></pre></td></tr></table></figure>
+
+<h4 id="master-branch-를-uptream-의-latest-version-으로-update-시키기"><a href="#master-branch-를-uptream-의-latest-version-으로-update-시키기" class="headerlink" title="master branch 를 uptream 의 latest version 으로 update 시키기"></a>master branch 를 uptream 의 latest version 으로 update 시키기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --ff upstream master</span><br></pre></td></tr></table></figure>
+
+<h4 id="여러-commit-을-하나로-합치기-squash"><a href="#여러-commit-을-하나로-합치기-squash" class="headerlink" title="여러 commit 을 하나로 합치기(squash)"></a>여러 commit 을 하나로 합치기(squash)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i HEAD~[commit 개수]</span><br></pre></td></tr></table></figure>
+
+<p>.gitconfig에서 설정해둔 editor 창이 나타난다. 기준이 될 맨 위의 한 commit 만 pick으로 두고 나머지는 squash라는 명령어로 바꿔준다. :wq 명령어를 통해 저장하고 종료한다. 그러면 또 다른 editor 창이 나타나는데, commit message 를 설정하는 editor 이다. 원하는 commit message 를 입력하고 :wq 명령어를 통해 저장하고 종료해주면 squash 가 된다.</p>
+<h4 id="git-history-출력하기"><a href="#git-history-출력하기" class="headerlink" title="git history 출력하기"></a>git history 출력하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+
+<h4 id="바로-이전-commit-에-새로운-파일-변경-사항을-추가하기"><a href="#바로-이전-commit-에-새로운-파일-변경-사항을-추가하기" class="headerlink" title="바로 이전 commit 에 새로운 파일 변경 사항을 추가하기"></a>바로 이전 commit 에 새로운 파일 변경 사항을 추가하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -C HEAD --amend</span><br></pre></td></tr></table></figure>
+
+<p>cf&gt; 만약 push 를 한 상태라면 -f옵션을 통해서 push 를 해줘야 한다. commit 을 새로 생성하지 않고 변경사항을 추가하는 것처럼 보이지만 내부적으로는 새로운 커밋이 생기는 것이기 때문에 push 된 commit 과 다른 commit 이다.</p>
+<h4 id="파일의-변경-이력을-무시해서-stage-에서-임시로-제외하기"><a href="#파일의-변경-이력을-무시해서-stage-에서-임시로-제외하기" class="headerlink" title="파일의 변경 이력을 무시해서 stage 에서 임시로 제외하기"></a>파일의 변경 이력을 무시해서 stage 에서 임시로 제외하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --assume-unchanged [파일명]</span><br></pre></td></tr></table></figure>
+
+<h4 id="파일의-변경-이력을-무시해서-stage-에서-임시로-제외한-상황을-되돌리기"><a href="#파일의-변경-이력을-무시해서-stage-에서-임시로-제외한-상황을-되돌리기" class="headerlink" title="파일의 변경 이력을 무시해서 stage 에서 임시로 제외한 상황을 되돌리기"></a>파일의 변경 이력을 무시해서 stage 에서 임시로 제외한 상황을 되돌리기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --no-assume-unchanged [파일명]</span><br></pre></td></tr></table></figure>
+
+<h4 id="현재-branch-에서-변경-사항-커밋없이-저장해두기"><a href="#현재-branch-에서-변경-사항-커밋없이-저장해두기" class="headerlink" title="현재 branch 에서 변경 사항 커밋없이 저장해두기"></a>현재 branch 에서 변경 사항 커밋없이 저장해두기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
+
+<h4 id="저장해두었던-변경-내역-불러오기"><a href="#저장해두었던-변경-내역-불러오기" class="headerlink" title="저장해두었던 변경 내역 불러오기"></a>저장해두었던 변경 내역 불러오기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+
+<h4 id="다른-branch-의-특정-commit-가져와서-merge-하기"><a href="#다른-branch-의-특정-commit-가져와서-merge-하기" class="headerlink" title="다른 branch 의 특정 commit 가져와서 merge 하기"></a>다른 branch 의 특정 commit 가져와서 merge 하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick [COMMIT_HASH_NUMBER]</span><br></pre></td></tr></table></figure>
+
+<h4 id="upstream-제거하기"><a href="#upstream-제거하기" class="headerlink" title="upstream 제거하기"></a>upstream 제거하기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --<span class="built_in">unset</span>-upstream</span><br></pre></td></tr></table></figure>
+
+<h3 id="Status-Git-command"><a href="#Status-Git-command" class="headerlink" title="Status Git command"></a>Status Git command</h3><h4 id="상황-1-conflict-가-발생하는-상황"><a href="#상황-1-conflict-가-발생하는-상황" class="headerlink" title="상황 1. conflict 가 발생하는 상황"></a>상황 1. conflict 가 발생하는 상황</h4><p>여러 가지 방법이 있지만 그 중 두 가지.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git merge upstream/master</span><br><span class="line">(resolve conflict <span class="keyword">in</span> editor)</span><br><span class="line">git add src</span><br><span class="line">git commit</span><br><span class="line">git rebase upstream/master</span><br><span class="line">(resolve conflict <span class="keyword">in</span> editor again)</span><br><span class="line">git add src</span><br><span class="line">git rebase --<span class="built_in">continue</span></span><br><span class="line">git push -f upstream YOUR_BRANCH_NAME</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream</span><br><span class="line">git rebase upstream/master</span><br><span class="line">(resolve conflict)</span><br><span class="line">git add .</span><br><span class="line">git rebase --<span class="built_in">continue</span></span><br><span class="line">git push -f origin [YOUR_WORKING_BRANCH_NAME]</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="상황-2-과거-commit-에-fix-한-commit-이-존재하여-이-commit-순서를-정렬하고-싶은-상황"><a href="#상황-2-과거-commit-에-fix-한-commit-이-존재하여-이-commit-순서를-정렬하고-싶은-상황" class="headerlink" title="상황 2. 과거 commit 에 fix 한 commit 이 존재하여 이 commit 순서를 정렬하고 싶은 상황"></a>상황 2. 과거 commit 에 fix 한 commit 이 존재하여 이 commit 순서를 정렬하고 싶은 상황</h4><p>어떤 commit 이 이미 올라갔는데 그 commit 에 해당하는 수정 사항이 발생하면 그에 해당하는 fix commit 을 추가할 경우가 있다. 이 때, commit 의 순서가 난잡해지는데 이 경우,<code>fixup</code>과 <code>autosquash</code> command 를 사용한다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --fixup [HASH]</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 해서 해당 fix commit 을 추가해놓은 다음에</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i --autosquash [HASH]</span><br></pre></td></tr></table></figure>
+
+<p>위 명령어를 통해서 squash 해주면 커밋 순서도 정렬되면서 하나의 commit 으로 squash 된다. 위 명령어에서 <code>HASH</code>란 어느 커밋부터 squash 를 할 것인가를 의미한다.</p>
+<p><em>cf&gt; fixup 과 squash 그리고 squeeze 의 차이점</em><br><code>squash</code>는 새로운 인터페이스가 열리면서 commit message 도 수정(포함 또는 배제)할 수 있다. <code>fixup</code>은 commit message 를 <code>pick</code>한 commit 에 대해서만 적용한다. <code>squeeze</code>는 squash 하고자 하는 모든 commit message 를 포함하면서 squash 한다.</p>
+<hr>
+</br>
+
+<h3 id="알아두면-쓸모있는-Git-Tip"><a href="#알아두면-쓸모있는-Git-Tip" class="headerlink" title="알아두면 쓸모있는 Git Tip"></a>알아두면 쓸모있는 Git Tip</h3><h4 id="Git-command-alias"><a href="#Git-command-alias" class="headerlink" title="Git command alias"></a>Git command alias</h4><p><code>Git</code>을 설치한 디렉토리에는 <code>.gitconfig</code> 파일이 존재한다. 이 파일에서 자주 사용하는 명령어에 대해서 alias 를 지정해줄 수 있다.</p>
+<p>.gitconfig</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">alias</span>]</span><br><span class="line">    g = git</span><br><span class="line">    st = status</span><br><span class="line">    co = checkout</span><br><span class="line">    ad = add</span><br><span class="line">    cm = commit -m</span><br><span class="line">    acm = commit -am</span><br><span class="line">    ph = push</span><br><span class="line">    rb = rebase -i</span><br><span class="line">    fh = fetch</span><br><span class="line">    df = diff</span><br><span class="line">    br = branch -a</span><br><span class="line">    lg = <span class="built_in">log</span> --graph --abbrev-commit --decorate --format=format:<span class="string">'%C(cyan)%h%C(reset) - %C(green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(yellow)%d%    C(reset)'</span> --all</span><br><span class="line">    re = reset HEAD\\^</span><br><span class="line">    fu = fetch upstream</span><br><span class="line">    rum = rebase upstream/master</span><br><span class="line">    pom = push origin master</span><br><span class="line">    list = config --get-regexp <span class="built_in">alias</span></span><br><span class="line">    readme = !git add . &amp;&amp; git commit -m <span class="string">"Update README.md"</span> &amp;&amp; git push origin master</span><br><span class="line">    docs = !git add . &amp;&amp; git commit -m <span class="string">"Update"</span> &amp;&amp; git push origin master</span><br><span class="line">    update = !git fetch upstream &amp;&amp; git rebase upstream/master &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="Commit-Log-format"><a href="#Commit-Log-format" class="headerlink" title="Commit Log format"></a>Commit Log format</h4><ul>
+<li><p>제목과 본문을 빈 행으로 분리한다</p>
+</li>
+<li><p>제목 행을 50 자로 제한한다</p>
+</li>
+<li><p>제목 행 첫 글자는 대문자로 쓴다</p>
+</li>
+<li><p>제목 행 끝에 마침표를 넣지 않는다</p>
+</li>
+<li><p>제목 행에 명령문을 사용한다</p>
+</li>
+<li><p>본문을 72 자 단위로 개행한다</p>
+</li>
+<li><p>어떻게 보다는 무엇과 왜를 설명한다</p>
+</li>
+<li><p>제목</p>
+<ul>
+<li>대문자, 동사로 시작. 앞에 ‘If applied, this commit will’가 생략된 것으로 간주</li>
+<li>가급적 50 자 안쪽</li>
+<li>마침표 생략</li>
+</ul>
+</li>
+<li><p>본문</p>
+<ul>
+<li>3 번째 줄부터 시작 (두번째 줄은 비움)</li>
+<li>최대줄 너비는 80 자. 이상은 줄바꿈</li>
+</ul>
+</li>
+</ul>
+<h4 id="추천-동사-personal"><a href="#추천-동사-personal" class="headerlink" title="추천 동사(personal)"></a>추천 동사(personal)</h4><ul>
+<li><code>Add</code> : 새로운 기능 또는 api 추가<ul>
+<li>예) Add API creating PDF</li>
+</ul>
+</li>
+<li><code>Remove</code> : 제거<ul>
+<li>예) Remove unused local variables</li>
+</ul>
+</li>
+<li><code>Enhance</code> : 기능 또는 성능의 향상<ul>
+<li>예) Enhance performance in select queries</li>
+</ul>
+</li>
+<li><code>Fix</code> : 버그, 오타, 스타일의 수정<ul>
+<li>예) Fix typos in Javadoc</li>
+<li>예) Fix styles for standards of Naver Corp</li>
+</ul>
+</li>
+<li><code>Upgrade</code> : 라이브러리 버전 업그레이드<ul>
+<li>예) Uprade commons-dbcp to 2.3.1</li>
+</ul>
+</li>
+<li><code>Document</code> : 문서화</li>
+<li><code>Refactor</code> : 리팩토링</li>
+<li><code>Update</code> : 다른 주변 상황에 맞추어서 갱신<ul>
+<li>예) Update README.md for 1.0 release</li>
+</ul>
+</li>
+<li><code>Polish</code> : 잡다한 수정 묶음 (다른 적절한 문구가 없을 경우 사용)</li>
+</ul>
+<h5 id="Reference-gt"><a href="#Reference-gt" class="headerlink" title="Reference&gt;"></a>Reference&gt;</h5><ul>
+<li><a href="https://github.com/JaeYeopHan/Minimal_Git_command" target="_blank" rel="noopener">Minimal_Git_command</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/blog/2019/11/14/rest-api-spring-batch/" rel="next" title="rest-api-spring-batch">
+                  <i class="fa fa-chevron-left"></i> rest-api-spring-batch
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/blog/2019/11/18/git-successful-branching-model/" rel="prev" title="성공적인 Git 브랜치 모델">
+                  성공적인 Git 브랜치 모델 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-Basic-Command-정리"><span class="nav-number">1.</span> <span class="nav-text">Git Basic Command 정리</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic"><span class="nav-number">1.1.</span> <span class="nav-text">Basic</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#add"><span class="nav-number">1.1.1.</span> <span class="nav-text">add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#변경-사항이-있는-모든-파일-add"><span class="nav-number">1.1.2.</span> <span class="nav-text">변경 사항이 있는 모든 파일 add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit-message-와-commit"><span class="nav-number">1.1.3.</span> <span class="nav-text">commit message 와 commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#변경-사항이-있는-모든-파일-add-와-동시에-commit"><span class="nav-number">1.1.4.</span> <span class="nav-text">변경 사항이 있는 모든 파일 add 와 동시에 commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#remote-repository-등록하기"><span class="nav-number">1.1.5.</span> <span class="nav-text">remote repository 등록하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#특정-branch-생성하며-remote-에-push-하기"><span class="nav-number">1.1.6.</span> <span class="nav-text">특정 branch 생성하며 remote 에 push 하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#branch-간-이동하기"><span class="nav-number">1.1.7.</span> <span class="nav-text">branch 간 이동하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#branch-생성하기"><span class="nav-number">1.1.8.</span> <span class="nav-text">branch 생성하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#branch-이름-바꾸기"><span class="nav-number">1.1.9.</span> <span class="nav-text">branch 이름 바꾸기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#이전-commit-과-비교하여-파일-변경-사항-확인하기"><span class="nav-number">1.1.10.</span> <span class="nav-text">이전 commit 과 비교하여 파일 변경 사항 확인하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit-log-보기"><span class="nav-number">1.1.11.</span> <span class="nav-text">commit log 보기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-log-graph-로-출력하기"><span class="nav-number">1.1.12.</span> <span class="nav-text">git log graph 로 출력하기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful"><span class="nav-number">1.2.</span> <span class="nav-text">Useful</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#변경-사항이-있는-파일-변경-사항-취소하기"><span class="nav-number">1.2.1.</span> <span class="nav-text">변경 사항이 있는 파일 변경 사항 취소하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit-한-개-취소하기"><span class="nav-number">1.2.2.</span> <span class="nav-text">commit 한 개 취소하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#바로-이전-commit-message-수정하기"><span class="nav-number">1.2.3.</span> <span class="nav-text">바로 이전 commit message 수정하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#local-git-repository-에-remote-repository-을-upstream-으로-등록하기"><span class="nav-number">1.2.4.</span> <span class="nav-text">local git repository 에 remote repository 을 upstream 으로 등록하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#master-branch-를-uptream-의-latest-version-으로-update-시키기"><span class="nav-number">1.2.5.</span> <span class="nav-text">master branch 를 uptream 의 latest version 으로 update 시키기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#여러-commit-을-하나로-합치기-squash"><span class="nav-number">1.2.6.</span> <span class="nav-text">여러 commit 을 하나로 합치기(squash)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-history-출력하기"><span class="nav-number">1.2.7.</span> <span class="nav-text">git history 출력하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#바로-이전-commit-에-새로운-파일-변경-사항을-추가하기"><span class="nav-number">1.2.8.</span> <span class="nav-text">바로 이전 commit 에 새로운 파일 변경 사항을 추가하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#파일의-변경-이력을-무시해서-stage-에서-임시로-제외하기"><span class="nav-number">1.2.9.</span> <span class="nav-text">파일의 변경 이력을 무시해서 stage 에서 임시로 제외하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#파일의-변경-이력을-무시해서-stage-에서-임시로-제외한-상황을-되돌리기"><span class="nav-number">1.2.10.</span> <span class="nav-text">파일의 변경 이력을 무시해서 stage 에서 임시로 제외한 상황을 되돌리기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#현재-branch-에서-변경-사항-커밋없이-저장해두기"><span class="nav-number">1.2.11.</span> <span class="nav-text">현재 branch 에서 변경 사항 커밋없이 저장해두기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#저장해두었던-변경-내역-불러오기"><span class="nav-number">1.2.12.</span> <span class="nav-text">저장해두었던 변경 내역 불러오기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#다른-branch-의-특정-commit-가져와서-merge-하기"><span class="nav-number">1.2.13.</span> <span class="nav-text">다른 branch 의 특정 commit 가져와서 merge 하기</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#upstream-제거하기"><span class="nav-number">1.2.14.</span> <span class="nav-text">upstream 제거하기</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Status-Git-command"><span class="nav-number">1.3.</span> <span class="nav-text">Status Git command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#상황-1-conflict-가-발생하는-상황"><span class="nav-number">1.3.1.</span> <span class="nav-text">상황 1. conflict 가 발생하는 상황</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#상황-2-과거-commit-에-fix-한-commit-이-존재하여-이-commit-순서를-정렬하고-싶은-상황"><span class="nav-number">1.3.2.</span> <span class="nav-text">상황 2. 과거 commit 에 fix 한 commit 이 존재하여 이 commit 순서를 정렬하고 싶은 상황</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#알아두면-쓸모있는-Git-Tip"><span class="nav-number">1.4.</span> <span class="nav-text">알아두면 쓸모있는 Git Tip</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-command-alias"><span class="nav-number">1.4.1.</span> <span class="nav-text">Git command alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Commit-Log-format"><span class="nav-number">1.4.2.</span> <span class="nav-text">Commit Log format</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#추천-동사-personal"><span class="nav-number">1.4.3.</span> <span class="nav-text">추천 동사(personal)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Reference-gt"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Reference&gt;</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">coderhglee</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/blog/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">coderhglee</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

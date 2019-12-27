@@ -46,15 +46,20 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="태그">
-<meta property="og:url" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;tags&#x2F;index.html">
+  <meta name="description" content="성공적인 Git History를 만들기 위한 브랜치 모델">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="성공적인 Git 브랜치 모델">
+<meta property="og:url" content="https:&#x2F;&#x2F;coderhglee.github.io&#x2F;2019&#x2F;11&#x2F;18&#x2F;git-successful-branching-model&#x2F;index.html">
 <meta property="og:site_name" content="dev history">
+<meta property="og:description" content="성공적인 Git History를 만들기 위한 브랜치 모델">
 <meta property="og:locale" content="ko">
-<meta property="og:updated_time" content="2019-12-27T09:22:26.396Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69035324-be8a6f80-0a26-11ea-941a-2ebc378de241.png">
+<meta property="og:updated_time" content="2019-12-27T09:22:26.389Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;user-images.githubusercontent.com&#x2F;24283191&#x2F;69035324-be8a6f80-0a26-11ea-941a-2ebc378de241.png">
 
-<link rel="canonical" href="https://coderhglee.github.io/tags/">
+<link rel="canonical" href="https://coderhglee.github.io/2019/11/18/git-successful-branching-model/">
 
 
 <script id="page-configurations">
@@ -62,14 +67,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>태그 | dev history
-  </title>
+  <title>성공적인 Git 브랜치 모델 | dev history</title>
   
 
 
@@ -174,52 +178,119 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="ko">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">태그
-</h1>
-
-<div class="post-meta">
+      
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://coderhglee.github.io/blog/2019/11/18/git-successful-branching-model/">
 
-</div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="coderhglee">
+      <meta itemprop="description" content="">
+    </span>
 
-</header>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dev history">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          성공적인 Git 브랜치 모델
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2019-11-18 16:59:22" itemprop="dateCreated datePublished" datetime="2019-11-18T16:59:22+09:00">2019-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2019-12-27 18:22:26" itemprop="dateModified" datetime="2019-12-27T18:22:26+09:00">2019-12-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">성공적인 Git History를 만들기 위한 브랜치 모델</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              총 3개의 태그
+        <h2 id="성공적인-브랜치-모델"><a href="#성공적인-브랜치-모델" class="headerlink" title="성공적인 브랜치 모델"></a>성공적인 브랜치 모델</h2><p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">https://nvie.com/posts/a-successful-git-branching-model/</a><br>이 글은 다른 외국 블로거가 1년의 프로젝트 동안 경험하고 적용한 브랜치 전략에 대해서 정리한 글이다. 우리 팀에서도 이러한 브랜치 모델을 지향하고 있기때문에 포스팅을 통해 개념 및 사용법을 정리하고자 한다.</p>
+<p><img src="https://user-images.githubusercontent.com/24283191/69035324-be8a6f80-0a26-11ea-941a-2ebc378de241.png" alt="image"></p>
+<h3 id="왜-Git을-사용하는가"><a href="#왜-Git을-사용하는가" class="headerlink" title="왜 Git을 사용하는가"></a>왜 Git을 사용하는가</h3><p>이전 회사에서는 svn을 통해 별도의 브랜치를 나누어 개발하지않고 master 브랜치를 통해 <code>commit</code> <code>update</code> 이 명령어 외 사용을 해본 기억이 많이 없다. 그러다 보니 필요성을 많이 느끼지 못하였고 왜 많은 회사에서 git을 사용하는지 공감하지못했다. 하지만 이직을 하고 사용해보니 이 좋은것을 왜 그동안 안썼는지 의문이었다.</p>
+<p>Git은 개발자들의 merging and branching에 대한 인식을 바꾸어놓았다. 기존 CVS/SVN은 merging and branching은 두려웠으며 가끔씩만 하는 행동들이었다.</p>
+<p>하지만 git은 이 행등돌을 매우 간단하고 쉽게, 그리고 workflow의 핵심부분중 하나로 생각했다.</p>
+<p>merging and branching은 더이상 두려움의 대상이 아니다.</p>
+<p>이글에서 제시하는 모델은 모든 팀 구성원이 따라야하는 개발 절차이다.</p>
+<h4 id="Decentralized-but-centralized"><a href="#Decentralized-but-centralized" class="headerlink" title="Decentralized but centralized"></a>Decentralized but centralized</h4><h4 id="main-branches"><a href="#main-branches" class="headerlink" title="main branches"></a>main branches</h4><p>하나의 repository에는 2개의 <code>main branches</code> 존재한다.</p>
+<ul>
+<li>master</li>
+<li>develop</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/blog/2019/11/18/git-basic-command/" rel="next" title="git-basic-command">
+                  <i class="fa fa-chevron-left"></i> git-basic-command
+                </a>
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/blog/tags/git/" style="font-size: 30px; color: #111">git</a> <a href="/blog/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/blog/tags/spring/" style="font-size: 12px; color: #ccc">spring</a>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/blog/2019/11/21/todo-list/" rel="prev" title="todo-list">
+                  todo-list <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
-        
-      </div>
-      
-      
-      
-    </div>
+      </footer>
     
+  </article>
+  
+  
+  
 
-    
-    
-    
   </div>
 
 
@@ -249,6 +320,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#성공적인-브랜치-모델"><span class="nav-number">1.</span> <span class="nav-text">성공적인 브랜치 모델</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#왜-Git을-사용하는가"><span class="nav-number">1.1.</span> <span class="nav-text">왜 Git을 사용하는가</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Decentralized-but-centralized"><span class="nav-number">1.1.1.</span> <span class="nav-text">Decentralized but centralized</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#main-branches"><span class="nav-number">1.1.2.</span> <span class="nav-text">main branches</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
