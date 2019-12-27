@@ -4,29 +4,35 @@ date: 2019-11-14 15:56:57
 description : Spring Batch
 category: [java, spring]
 tag : [java, spring]
-
 ---
+## Requirement
+* 평일 8시부터 18시까지 1분마다 API를 요청해 새로운 Data를 DB에 저장하고 뉴스 기사를 생성하는 Batch프로그램을 개발한다.
 
-Spring Batch에서 제공하는 메타테이블을 사용하지않고 Batch 프로그램을 구동시키기 위한 InMemoryBatchConfigurer Class을 정의한다.
+## Why Spring Batch?
+기존 사내 Batch는 단순 Thread로 구성되어있어서 상당히 코드가 복잡한 부분이 있었다. 하지만 Spring Batch는 Spring의 DI, AOP, 추상화등 Spring Framework의 요소를 모두 사용할수있고, Framework의 러닝커브가 조금 있지만 잘 사용만하면 코드가 상당히 깔끔해지는 부분이 있어서 Batch Framework를 도입하였다.
 
 ## Batch Meta-Data Schema
-
-![Meta-Data Schema](https://user-images.githubusercontent.com/24283191/69026694-482e4300-0a0f-11ea-8f3f-7b7a793d1623.png)
+Spring Batch에선 메타 데이터 테이블들이 필요하다.
 
 - 이전에 실행한 Job이 어떤 것들이 있는지
 - 최근 실패한 Batch Parameter가 어떤것들이 있고, 성공한 Job은 어떤것들이 있는지
 - 다시 실행한다면 어디서 부터 시작하면 될지
 - 어떤 Job에 어떤 Step들이 있었고, Step들 중 성공한 Step과 실패한 Step들은 어떤것들이 있는지
 
-## In-Memory Repository
+아래는 메타 테이블의 구조이다.
 
+![Meta-Data Schema](https://user-images.githubusercontent.com/24283191/69026694-482e4300-0a0f-11ea-8f3f-7b7a793d1623.png)
+
+하지만 나는 DB에서 최근 수집된 날짜를 조회한뒤 그 이후 날짜에 대한 데이터를 가져오기때문에 특정 날짜에 대한 Job을 실패한다면 다음 Job에서도 똑같은 날짜를 성공할때까지 계속 요청할것이기 때문에 이러한 상태정보를 저장할 필요성을 느끼지 못하였다. 하지만 추후 어떤 장애가 발생되었을때 알림이 오는 프로세스는 개발이 필요할것같다 Slack봇을 활용할 생각이다.
+
+## In-Memory Repository
 도메인 개체를 데이터베이스에 유지하지 않으려는 2가지 시나리오.
 
 - 한 가지 이유는 속도. 각 커밋 지점에 도메인 개체를 저장하는 데 추가 시간이 걸리기 때문.
 
 - 두번째 특정 작업에 대한 상태를 유지할 필요가 없음.
 
-이러한 이유로 Spring Batch는 작업 저장소의 메모리 내 맵 버전을 제공한다.
+이러한 이유로 Spring Batch에서 제공하는 Meta-Data를 사용하지않고 Batch 프로그램을 구동시키기 위한 `BatchConfigurer` 인터페이스를 상속받은 `InMemoryBatchConfigurer` Class를 구성했다.
 
 ``` java
 public class InMemoryBatchConfigurer implements BatchConfigurer {
@@ -55,7 +61,7 @@ public class InMemoryBatchConfigurer implements BatchConfigurer {
     public JobExplorer getJobExplorer() {
         return jobExplorer;
     }
-
+    //의존성 주입이 이루어진후 초기화를 수행하는 메소드이다.
     @PostConstruct
     public void initialize() {
         //transactionManager define
@@ -64,6 +70,7 @@ public class InMemoryBatchConfigurer implements BatchConfigurer {
         }
         try {
             //jobRepository define
+            //MapJobRepositoryFactoryBean -> using non-persistent in-memory DAO implementations 
             MapJobRepositoryFactoryBean jobRepositoryFactoryBean =
                     new MapJobRepositoryFactoryBean(this.transactionManager);
             jobRepositoryFactoryBean.afterPropertiesSet();
@@ -86,9 +93,69 @@ public class InMemoryBatchConfigurer implements BatchConfigurer {
     }
 }
 ```
+## EnableScheduling
+스케줄러중에 Quartz라는 프레임워크도있고 젠킨슨같은 CI툴을 사용할수도있지만 아직 사내에 도입하지 않았기때문에 @Scheduled 어노테이션을 활용했다.
+cron 문법을 사용해서 0 0/1 8-18 * * MON-FRI 으로 정의하였고 월~금 08시 00분 부터 18시 59분 까지 1분마다 해당 메소드가 실행된다.
 
+``` java
+@Component
+public class AppScheduler {
+
+    @Autowired
+    private Job job;
+
+    @Autowired
+    private JobLauncher jobLauncher;
+
+    //JPA Repository
+    @Autowired
+    private RobotNewsRepository newsRepository;
+
+    //기사 생성 Service
+    @Autowired
+    private ArticleService articleService;
+
+    //스케쥴러 0 0/1 8-18 * * MON-FRI
+    @Scheduled(cron = "0 0/1 8-18 * * MON-FRI")
+    public void work() {
+        //실행 시간 밀리타임.
+        Long runTime = System.currentTimeMillis();
+
+        log.info("Job Started at : {}", runTime);
+
+        //DB에서 마지막 수집된 기사 생성시간 조회한다
+        String lastCreatedDate = newsRepository.getLastCreatedDate();
+        //Null 이면 오늘 날짜에 00:00:00 으로 가져옴.
+        if (lastCreatedDate == null) {
+            lastCreatedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " 00:00:00";
+        }
+        //JobParameters
+        JobParameters param =
+                new JobParametersBuilder()
+                        .addString("lastCreatedDate", lastCreatedDate)
+                        .addLong("runTime", runTime).toJobParameters();
+        //Job 실행 Class
+        JobExecution execution = null;
+        try {
+            log.info("Job Param : {}", param.toString());
+            execution = jobLauncher.run(job, param);
+            log.info("Job finished apiJob with status : {}", execution.getStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Job 실행 결과 COMPLETED이면 저장된 비동기 Static Queue Size 만큼 기사생성 Service 호출.
+        //해당 내용은 아래에 설명.
+        if (execution.getStatus().equals(BatchStatus.COMPLETED)) {
+            for (int i = 0; i < staticDtoQueue.size(); i++) {
+                articleService.articleTask();
+            }
+        }
+    }
+}
+
+```
 ## Job
-
 ![Job](https://user-images.githubusercontent.com/24283191/69026697-495f7000-0a0f-11ea-963e-a75b7a2ef814.png)
 
 ```java
@@ -101,6 +168,8 @@ public class BatchConfig {
     private StepBuilderFactory stepBuilderFactory;
     @Autowired
     private InterceptingJobExecution interceptingJobExecution;
+
+    //API호출을 위한 RestTemplate 사용
     @Autowired
     private RestTemplate restTemplate;
 
@@ -166,6 +235,47 @@ Chunk 지향 처리는 한 번에 하나씩 데이터를 읽고 트랜잭션 경
 
 API를 호출하고 Json을 jackson 라이브러리를 통하여 Java `List<Object>`로 컨버팅 후 Object로 반환
 
+### CustomObjectMapper
+
+LocalDateTime을 한꺼번에 포맷팅하기 위해 jackson object mapper를 재정의 한다.
+
+``` java
+public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    @Override
+    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+
+        String valueAsString = jsonParser.getValueAsString();
+        if (StringUtils.isEmpty(valueAsString)) {
+            return null;
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)
+                    .withZone(ZoneId.of("UTC"));
+            LocalDateTime ldt = LocalDateTime.parse(valueAsString,formatter);
+            return ldt;
+        }catch(Exception e) {
+            return null;
+        }
+
+    }
+}
+
+public class CustomObjectMapper extends ObjectMapper {
+    public CustomObjectMapper() {
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addDeserializer(LocalDateTime.class, new CustomLocalDateTimeDeserializer());
+
+        registerModule(simpleModule);
+        // 없는 필드로 인한 오류 무시
+        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+}
+```
+
+### JsonReader
+
 ```java
 public class JsonReader implements ItemReader<NewsDto> {
 
@@ -213,6 +323,7 @@ public class JsonReader implements ItemReader<NewsDto> {
 
     private List<Object> setList() {
         //LocalDateTime 파싱을 위한 CustomObjectMapper 정의.
+        //해당 내용은 아래에 설명.
         ObjectMapper objectMapper = new CustomObjectMapper();
         List<Object> objectList = null;
 
@@ -223,7 +334,7 @@ public class JsonReader implements ItemReader<NewsDto> {
 
             JsonNode root = objectMapper.readTree(response.getBody());
 
-            JsonNode news = root.path("res").path("channel").path("news");
+            JsonNode news = root.path("news");
             ObjectReader objectReader = objectMapper.readerFor(new TypeReference<List<Object>>() {
             });
 
@@ -268,87 +379,20 @@ public class JsonWrite implements ItemWriter<Object> {
         for (Object item : items) {
           //DB insert or update
 
-          //CMS Queue ADD
-          cmsDtoQueue.add(new CmsDto(robotNewsContent.getContentId()));
+          //기사 아이디 Static Queue 추가
+          staticDtoQueue.add(new StaticDto(newsContent.getContentId()));
         }
     }
 }
 ```
 
-## EnableScheduling
+## 비동기 서비스
 
-0 0/1 8-18 * * MON-FRI 월~금 08시 00분 부터 18시 59분 까지 1분마다
-
-``` java
-@Component
-public class AppScheduler {
-
-    @Autowired
-    private Job job;
-
-    @Autowired
-    private JobLauncher jobLauncher;
-
-    //JPA Repository
-    @Autowired
-    private RobotNewsRepository robotNewsRepository;
-
-    //CMS 기사 생성 Service
-    @Autowired
-    private ArticleService articleService;
-
-    //CMS 기사 생성 금지 Flag
-    @Value("${cms.info.enabled}")
-    private boolean cmsEnabled;
-
-    //스케쥴러 0 0/1 8-18 * * MON-FRI
-    @Scheduled(cron = "${job.scheduled}")
-    public void work() {
-        //실행 시간 밀리타임.
-        Long runTime = System.currentTimeMillis();
-
-        log.info("Job Started at : {}", runTime);
-
-        //마지막 수집된 기사 생성시간 조회
-        String lastCreatedDate = robotNewsRepository.getLastCreatedDate();
-        //Null 이면 현재 날짜에 00:00:00 으로 가져옴.
-        if (lastCreatedDate == null) {
-            lastCreatedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " 00:00:00";
-        }
-        //JobParameters
-        JobParameters param =
-                new JobParametersBuilder()
-                        .addString("lastCreatedDate", lastCreatedDate)
-                        .addLong("runTime", runTime).toJobParameters();
-        //Job 실행 Class
-        JobExecution execution = null;
-        try {
-            log.info("Job Param : {}", param.toString());
-            execution = jobLauncher.run(job, param);
-            log.info("Job finished apiJob with status : {}", execution.getStatus());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (cmsEnabled) {
-            //Job 실행 결과 COMPLETED이면  저장된 Queue Size 만큼 기사생성 Service 호출.
-            if (execution.getStatus().equals(BatchStatus.COMPLETED)) {
-                for (int i = 0; i < cmsDtoQueue.size(); i++) {
-                    articleService.articleTask();
-                }
-            }
-        }
-    }
-}
-```
-
-## @EnableAsync
-
-- CMS에서 기사를 생성하는데 10~20초 정도 소요됨.
+- 내부 시스템에서 기사를 생성하는데 10~20초 정도 소요됨.
 - 만약 기사가 5개 생성된다면 최대 100초가 걸림.
 - 즉 1분안에 모든 로직이 완료된다는 보장이 없음.
 
-## TaskExecutor
+### TaskExecutor Bean
 
 ``` java
 //최초 생성되는 스레드 사이즈
@@ -371,14 +415,14 @@ public TaskExecutor executor() {
 }
 ```
 
-## static Queue 생성
+### 정적 큐 선언
 
 ``` java
 //BasicConfig class
-public static final Queue<CmsDto> cmsDtoQueue = new ConcurrentLinkedQueue<>();
+public static final Queue<StaticDto> staticDtoQueue = new ConcurrentLinkedQueue<>();
 ```
 
-프로세스를 재시작할때 기사 생성 누락을 방지하기위해 누락된 기사 조회 및 Queue Add
+* 프로세스를 재시작할때 기사 생성 누락을 방지하기위해 누락된 기사 조회 후 정적 큐에 Add
 
 ``` java
 // 모든 Bean 특성이 설정되면 구성 및 최종 초기화
@@ -387,47 +431,47 @@ public static final Queue<CmsDto> cmsDtoQueue = new ConcurrentLinkedQueue<>();
 public class InitializingMetaDataBean implements InitializingBean {
 
     @Autowired
-    private RobotNewsRepository robotNewsRepository;
+    private RobotNewsRepository newsRepository;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         //오늘 날짜에 생성되지 않은 기사를 큐에 초기 셋팅.
         String today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        List<String> contentList = robotNewsRepository.getNotYetCreatedContent(today);
+        List<String> contentList = newsRepository.getNotYetCreatedContent(today);
         log.info("InitializingMetaDataBean Queue Size {}",contentList.size());
 
         for (String contentId : contentList) {
-            cmsDtoQueue.add(new CmsDto(contentId));
+            staticDtoQueue.add(new StaticDto(contentId));
         }
 
     }
 }
 ```
 
-비동기 Service Define
+### 비동기 메소드
 
 ``` java
 
-//CMS 기사 생성 DTO
-public class CmsDto {
+//기사 생성 DTO
+public class StaticDto {
     private String contentId;
-    private String cmsId;
+    private String id;
     private LocalDateTime expireTime;
 
-    public CmsDto(String contentId) {
+    public StaticDto(String contentId) {
         this.contentId = contentId;
     }
 }
 
-//CMS 기사 생성 Service
+//기사 생성 메소드
 @Async("taskExecutor")
 public RepeatStatus articleTask() {
-    if (cmsDtoQueue.size() <= 0) return RepeatStatus.FINISHED;
-    CmsDto cmsDto = cmsDtoQueue.poll();
+    if (staticDtoQueue.size() <= 0) return RepeatStatus.FINISHED;
+    StaticDto staticDto = staticDtoQueue.poll();
 
-    String contentId = cmsDto.getContentId();
+    String contentId = staticDto.getContentId();
     String url = String.format(cmsUrl+"?fname=%s&siteid=%s", contentId, siteId);
-    log.info("CMS 기사 생성 시작 siteId {} contentId {}", siteId, contentId);
+    log.info("기사 생성 시작 siteId {} contentId {}", siteId, contentId);
     log.info("Request URL {}", url);
 
     ResponseEntity<String> response = null;
@@ -441,70 +485,31 @@ public RepeatStatus articleTask() {
     }
     log.info("Response statusCode {}", response.getStatusCode());
 
-    String cmsId = robotNewsRepository.getExistCmsId(contentId);
-    log.info("CMSID IS {}", cmsId);
+    String id = newsRepository.getExistId(contentId);
+    log.info("ID IS {}", id);
 
-    if (cmsId != null) {
-        cmsDto.setCmsId(cmsId);
+    if (id != null) {
+        staticDto.setId(id);
     }
 
-    if (response.getStatusCode().equals(HttpStatus.OK) && cmsDto.getCmsId() != null) {
-        log.info("CMS 기사 생성 성공 siteId {} contentId {}", siteId, contentId);
+    if (response.getStatusCode().equals(HttpStatus.OK) && staticDto.getId() != null) {
+        log.info("기사 생성 성공 siteId {} contentId {}", siteId, contentId);
     } else {
         //만료시간 10분 추가.
         LocalDateTime failNowTime = LocalDateTime.now();
 
-        if (cmsDto.getExpireTime() != null) {
+        if (staticDto.getExpireTime() != null) {
 
-            if (cmsDto.getExpireTime().isAfter(failNowTime)) {
-                log.error("CMS 기사 생성 시간 10분 초과 contentId {} expireTime {}", contentId, cmsDto.getExpireTime());
+            if (staticDto.getExpireTime().isAfter(failNowTime)) {
+                log.error("기사 생성 시간 10분 초과 contentId {} expireTime {}", contentId, staticDto.getExpireTime());
                 return RepeatStatus.FINISHED;
             }
         } else {
-            cmsDto.setExpireTime(failNowTime.plusMinutes(10));
-            log.error("CMS 기사 생성 실패 siteId {} contentId {} expireTime {} ", siteId, contentId, cmsDto.getExpireTime());
+            staticDto.setExpireTime(failNowTime.plusMinutes(10));
+            log.error("기사 생성 실패 siteId {} contentId {} expireTime {} ", siteId, contentId, staticDto.getExpireTime());
         }
-        cmsDtoQueue.add(cmsDto);
+        staticDtoQueue.add(staticDto);
     }
     return RepeatStatus.FINISHED;
-}
-```
-
-## CustomObjectMapper
-
-LocalDateTime을 한꺼번에 포맷팅하기 위해 jackson object mapper를 재정의 한다.
-
-``` java
-public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-
-    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-    @Override
-    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-
-        String valueAsString = jsonParser.getValueAsString();
-        if (StringUtils.isEmpty(valueAsString)) {
-            return null;
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)
-                    .withZone(ZoneId.of("UTC"));
-            LocalDateTime ldt = LocalDateTime.parse(valueAsString,formatter);
-            return ldt;
-        }catch(Exception e) {
-            return null;
-        }
-
-    }
-}
-
-public class CustomObjectMapper extends ObjectMapper {
-    public CustomObjectMapper() {
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addDeserializer(LocalDateTime.class, new CustomLocalDateTimeDeserializer());
-
-        registerModule(simpleModule);
-        // 없는 필드로 인한 오류 무시
-        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
 }
 ```
